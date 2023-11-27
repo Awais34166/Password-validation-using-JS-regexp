@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password validation</title>
+    <style>
+        * {
+           font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        body {
+            background:linear-gradient(darkred,blue);
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        form {
+            width: 400px;
+            height: 350px;
+            margin: auto;
+            margin-top: 100px;
+            background: linear-gradient(red,skyblue);
+            border-radius: 20px;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            float: left;
+            width: 200px;
+            font-size: 15px;
+            margin-left: 5px;
+        }
+        .clear {
+            clear: both;
+        }
+        label::after {
+            content: "*";
+        }
+       #submit {
+        background-color: rgb(62, 62, 202);
+        margin-left: -150px;
+        font-size: 30px;
+        position: absolute;
+        width: 300px;
+        bottom: 5px;
+        border-radius: 10px;
+        cursor: pointer;
+       }
+       #alert {
+        font-size: 12px;
+        color: red;
+       }
+       .password-check::after {
+           content: "";
+       }
+       .password-check {
+        display: flex;
+        color: black;
+        font-weight: bold;
+       }
+    </style>
+</head>
+<body>
+    <form action="" method="post" onsubmit="return validate()">
+    <p>
+        <h1 style="font-size: 30px; text-align: center; text-transform: capitalize;">Registration form</h1>
+    </p>
+    <p>
+        <label for="username"> User name:</label>
+        <input type="text" id="username" name="username" placeholder="User name">
+         <div class="clear"></div>
+    </p>
+    <p>
+        <label for="password">Password:</label>
+        <input type="text" id="password" name="password" placeholder="Password" autocomplete="off" onkeyup="passcheck(this.value)">
+        <div class="clear"></div>
+    </p>
+    <p>
+        <label for="confirmpassword">Confirm Password:</label>
+        <input type="confirmpassword" id="confirmpassword" name="confirmpassword" placeholder="Confirm Password" onkeyup="check(this)">
+        <error id="alert"></error>
+    </p>
+    <p>
+        <label for="" class="password-check">8 characters</label>
+        <label for="" class="password-check">1 lower case character</label>
+        <label for="" class="password-check">1 Upper case character</label>
+        <label for="" class="password-check">1 numeric value</label>
+        <label for="" class="password-check">1 special character</label>
+    </p>
+    <p>
+        <input type="submit" id="submit" value="Submit">
+    </p>
+</form>
+</body>
+<script>
+    function passcheck(data) {
+        var passClass = document.getElementsByClassName('password-check');
+        const Lowercase = new RegExp('(?=.*[a-z])');
+        const Uppercase = new RegExp('(?=.*[A-Z])');
+        const number = new RegExp('(?=.*[0-9])');
+        const specialChar = new RegExp('(?=.*[!@#\$%\^&\*])');
+        const Eightchar = new RegExp('(?=.{8,})');
+
+        if(Eightchar.test(data)) {
+             passClass[0].style.color="green";
+        } else {
+            passClass[0].style.color= "black";
+        }
+        if(Lowercase.test(data)) {
+             passClass[1].style.color="green";
+        } else {
+            passClass[1].style.color= "black";
+        }
+        if(Uppercase.test(data)) {
+             passClass[2].style.color="green";
+        } else {
+            passClass[2].style.color= "black";
+        }
+        if(number.test(data)) {
+             passClass[3].style.color="green";
+        } else {
+            passClass[3].style.color= "black";
+        }
+        if(specialChar.test(data)) {
+             passClass[4].style.color="green";
+        } else {
+            passClass[4].style.color= "black";
+        }
+    }
+</script>
+</html>
